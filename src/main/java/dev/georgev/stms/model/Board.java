@@ -13,15 +13,16 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "board")
 public class Board {
+    // Import foreign key from Account(account_id) to Board(owner_id)
+    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", referencedColumnName = "account_id")
+    public Account account;
+
     // Constructors
     public Board() {}
 
-    public Board(long board_id, String name, long owner_id, Timestamp created_at, Timestamp updated_at) {
-        this.board_id = board_id;
+    public Board(String name) {
         this.name = name;
-        this.owner_id = owner_id;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     // Columns
@@ -31,15 +32,11 @@ public class Board {
     @Column(name = "board_id")
     private long board_id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     @NotEmpty(message = "Please, provide a name.")
     @Min(value = 2, message = "Contents must be at least 2 characters long.")
     @Max(value = 255, message = "Contents exceed limit (255).")
     private String name;
-
-    @Column(name = "owner_id")
-    @NotEmpty(message = "Please, provide an owner ID.")
-    private long owner_id;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -66,13 +63,6 @@ public class Board {
         this.name = name;
     }
 
-    public long getOwner_id() {
-        return owner_id;
-    }
-
-    public void setOwner_id(long owner_id) {
-        this.owner_id = owner_id;
-    }
 
     public Timestamp getCreated_at() {
         return created_at;
@@ -89,5 +79,4 @@ public class Board {
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
     }
-
 }

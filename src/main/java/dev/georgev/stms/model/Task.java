@@ -14,28 +14,33 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "task")
 public class Task {
+    // Import foreign key from Account(account_id) to Task(reported_by)
+    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "reported_by", referencedColumnName = "account_id")
+    public Account reported_by;
+
+    // Import foreign key from Account(account_id) to Board(owner_id)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigned_to", referencedColumnName = "account_id")
+    public Account assigned_to;
+
+    // Import foreign key from Account(account_id) to Board(owner_id)
+    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id", referencedColumnName = "board_id")
+    public Board board_id;
+
     // Constructors
     public Task() {}
 
-    public Task(long task_id, String title,
-                long project_id, long board_id,
+    public Task(String title,
                 String type, String status, String description,
-                long reported_by, long assigned_to,
-                String priority, long story_points,
-                Timestamp created_at, Timestamp updated_at) {
-        this.task_id = task_id;
+                String priority, long story_points) {
         this.title = title;
-        this.project_id = project_id;
-        this.board_id = board_id;
         this.type = type;
         this.status = status;
         this.description = description;
-        this.reported_by = reported_by;
-        this.assigned_to = assigned_to;
         this.priority = priority;
         this.story_points = story_points;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     // Columns
@@ -53,10 +58,6 @@ public class Task {
     @NotEmpty(message = "Please, provide a project ID.")
     private long project_id;
 
-    @Column(name = "board_id")
-    @NotEmpty(message = "Please, provide a board ID.")
-    private long board_id;
-
     @Column(name = "type")
     @Max(value = 50, message = "Contents exceed limit (50).")
     private String type;
@@ -70,14 +71,6 @@ public class Task {
     @Column(name = "description")
     @Nullable
     private String description;
-
-    @Column(name = "reported_by")
-    @NotEmpty(message = "Please, enter a valid account ID.")
-    private long reported_by;
-
-    @Column(name = "assigned_to")
-    @Nullable
-    private long assigned_to;
 
     @Column(name = "priority")
     @Nullable
@@ -121,14 +114,6 @@ public class Task {
         this.project_id = project_id;
     }
 
-    public long getBoard_id() {
-        return board_id;
-    }
-
-    public void setBoard_id(long board_id) {
-        this.board_id = board_id;
-    }
-
     public String getType() {
         return type;
     }
@@ -151,22 +136,6 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public long getReported_by() {
-        return reported_by;
-    }
-
-    public void setReported_by(long reported_by) {
-        this.reported_by = reported_by;
-    }
-
-    public long getAssigned_to() {
-        return assigned_to;
-    }
-
-    public void setAssigned_to(long assigned_to) {
-        this.assigned_to = assigned_to;
     }
 
     public String getPriority() {

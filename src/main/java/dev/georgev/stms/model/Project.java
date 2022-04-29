@@ -12,14 +12,18 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "project", uniqueConstraints = @UniqueConstraint(columnNames = "project_key"))
 public class Project {
+    // Import foreign key from Account(account_id) to Project(owner_id)
+    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", referencedColumnName = "account_id")
+    public Account owner_id;
+
     // Constructors
     public Project() {}
 
-    public Project(long project_id, String project_key, String title, long owner_id, Timestamp created_at, Timestamp updated_at) {
+    public Project(long project_id, String project_key, String title, Timestamp created_at, Timestamp updated_at) {
         this.project_id = project_id;
         this.project_key = project_key;
         this.title = title;
-        this.owner_id = owner_id;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -39,10 +43,6 @@ public class Project {
     @NotEmpty(message = "Please, provide a project title.")
     @Max(255)
     private String title;
-
-    @Column(name = "owner_id")
-    @NotEmpty(message = "Please, provide an owner ID.")
-    private long owner_id;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -77,14 +77,6 @@ public class Project {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public long getOwner_id() {
-        return owner_id;
-    }
-
-    public void setOwner_id(long owner_id) {
-        this.owner_id = owner_id;
     }
 
     public Timestamp getCreated_at() {

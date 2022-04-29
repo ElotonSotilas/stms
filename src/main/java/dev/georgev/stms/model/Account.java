@@ -15,13 +15,10 @@ public class Account {
     public Account () {}
 
     // Account Constructor using parameters
-    public Account(long account_id, String first_name, String last_name, String email, Timestamp created_at, Timestamp updated_at) {
-        this.account_id = account_id;
+    public Account(String first_name, String last_name, String email) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     // Define variables for each column in Account
@@ -44,7 +41,7 @@ public class Account {
     @Max(value = 255, message = "Contents exceed limit (255).")
     private String last_name;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @NotEmpty(message = "Please, provide an email.")
     @Max(value = 255, message = "Contents exceed limit (255).")
     @Email(message = "Invalid email.")
@@ -59,7 +56,6 @@ public class Account {
     private Timestamp updated_at;
 
     // Getters and Setters
-
     public long getAccount_id() {
         return this.account_id;
     }
@@ -107,6 +103,4 @@ public class Account {
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
     }
-
-
 }

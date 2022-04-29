@@ -25,4 +25,10 @@ public class AccountController {
     public Account createAccount(@RequestBody Account a) {
         return accountRepository.save(a);
     }
+
+    // Remove account REST API
+    @DeleteMapping("/account")
+    public boolean removeAccount(@RequestBody Account a) {
+        return accountRepository.findAll().remove(a);
+    }
 }

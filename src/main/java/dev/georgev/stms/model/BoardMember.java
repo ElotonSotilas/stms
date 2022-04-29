@@ -6,12 +6,16 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "board_member")
 public class BoardMember {
+    // Import foreign key from Account(account_id) to BoardMembers(account_id)
+    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", referencedColumnName = "account_id")
+    public Account account;
+
     // Constructors
     public BoardMember() {}
 
-    public BoardMember(long board_id, long account_id) {
+    public BoardMember(long board_id) {
         this.board_id = board_id;
-        this.account_id = account_id;
     }
 
     // Columns
@@ -20,10 +24,6 @@ public class BoardMember {
     @NotEmpty(message = "Please, provide a board ID.")
     private long board_id;
 
-    @Column(name = "account_id")
-    @NotEmpty(message = "Please, provide an account ID.")
-    private long account_id;
-
     // Getters and Setters
     public long getBoard_id() {
         return board_id;
@@ -31,13 +31,5 @@ public class BoardMember {
 
     public void setBoard_id(long board_id) {
         this.board_id = board_id;
-    }
-
-    public long getAccount_id() {
-        return account_id;
-    }
-
-    public void setAccount_id(long account_id) {
-        this.account_id = account_id;
     }
 }
