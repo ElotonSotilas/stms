@@ -7,10 +7,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "account")
 public class Account {
+    @ManyToMany
+    @JoinTable(
+            name = "board_member",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "board_id")
+    )
+    private Set<Board> boards;
+
     // Empty Account Constructor (Required for Hibernate to function)
     public Account () {}
 

@@ -9,10 +9,14 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "board")
 public class Board {
+    @ManyToMany(mappedBy = "boards")
+    public Set<Account> members;
+
     // Import foreign key from Account(account_id) to Board(owner_id)
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "account_id")
