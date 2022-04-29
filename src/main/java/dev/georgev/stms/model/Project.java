@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "project", uniqueConstraints = @UniqueConstraint(columnNames = "project_key"))
 public class Project {
-    // Import foreign key from Account(account_id) to Project(owner_id)
+    // Create foreign key
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "account_id")
     public Account owner_id;
@@ -20,12 +20,10 @@ public class Project {
     // Constructors
     public Project() {}
 
-    public Project(long project_id, String project_key, String title, Timestamp created_at, Timestamp updated_at) {
+    public Project(long project_id, String project_key, String title) {
         this.project_id = project_id;
         this.project_key = project_key;
         this.title = title;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     // Fields

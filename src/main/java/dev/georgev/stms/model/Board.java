@@ -17,10 +17,9 @@ public class Board {
     @ManyToMany(mappedBy = "boards")
     public Set<Account> members;
 
-    // Import foreign key from Account(account_id) to Board(owner_id)
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", referencedColumnName = "account_id")
-    public Account account;
+    // Create foreign key
+    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    public Account owner;
 
     // Constructors
     public Board() {}

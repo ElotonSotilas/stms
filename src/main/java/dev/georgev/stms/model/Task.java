@@ -10,21 +10,22 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "task")
 public class Task {
-    // Import foreign key from Account(account_id) to Task(reported_by)
+    // Create foreign key
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "reported_by", referencedColumnName = "account_id")
     public Account reported_by;
 
-    // Import foreign key from Account(account_id) to Board(owner_id)
+    // Create foreign key
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_to", referencedColumnName = "account_id")
     public Account assigned_to;
 
-    // Import foreign key from Account(account_id) to Board(owner_id)
+    // Create foreign key
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id", referencedColumnName = "board_id")
     public Board board_id;
@@ -62,18 +63,15 @@ public class Task {
     @Max(value = 50, message = "Contents exceed limit (50).")
     private String type;
 
-    @Column(name = "status")
-    @Nullable
+    @Column(name = "status", nullable = false)
     @Max(value = 50, message = "Contents exceed limit (50).")
     @Value("New")
     private String status;
 
     @Column(name = "description")
-    @Nullable
     private String description;
 
-    @Column(name = "priority")
-    @Nullable
+    @Column(name = "priority", nullable = false)
     @Value("Low")
     private String priority;
 
@@ -118,17 +116,30 @@ public class Task {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    public boolean setType(String type) {
+        if (Objects.equals(type, "Story") ||
+        Objects.equals(type, "Bug") ||
+        Objects.equals(type, "Epic") ||
+        Objects.equals(type, "New Feature") ||
+        Objects.equals(type, "Technical Debt")) {
+            this.type = type;
+            return true;
+        } else return false;
+    } // Possible values
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public boolean setStatus(String status) {
+        if (Objects.equals(status,"New") ||
+        Objects.equals(status, "In Development") ||
+        Objects.equals(status, "In QA") ||
+        Objects.equals(status, "Done")) {
+            this.status = status;
+            return true;
+        } else return false;
+    } // validation of entries
 
     public String getDescription() {
         return description;
@@ -142,9 +153,14 @@ public class Task {
         return priority;
     }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
+    public boolean setPriority(String priority) {
+        if (Objects.equals(priority, "Low") ||
+            Objects.equals(priority, "Medium") ||
+            Objects.equals(priority, "High")) {
+            this.priority = priority;
+            return true;
+        } else return false;
+    } // Must be one of these values to set.
 
     public long getStory_points() {
         return story_points;
