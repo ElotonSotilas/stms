@@ -19,6 +19,7 @@ public class Board {
 
     // Create foreign key
     @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", referencedColumnName = "account_id")
     public Account owner;
 
     // Constructors

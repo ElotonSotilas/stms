@@ -30,6 +30,11 @@ public class Task {
     @JoinColumn(name = "board_id", referencedColumnName = "board_id")
     public Board board_id;
 
+    // Create foreign key
+    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
+    public Project project;
+
     // Constructors
     public Task() {}
 
@@ -54,10 +59,6 @@ public class Task {
     @NotEmpty(message = "Please, provide a task title.")
     @Max(value = 255, message = "Contents exceed limit (255).")
     private String title;
-
-    @Column(name = "project_id")
-    @NotEmpty(message = "Please, provide a project ID.")
-    private long project_id;
 
     @Column(name = "type")
     @Max(value = 50, message = "Contents exceed limit (50).")
@@ -102,14 +103,6 @@ public class Task {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public long getProject_id() {
-        return project_id;
-    }
-
-    public void setProject_id(long project_id) {
-        this.project_id = project_id;
     }
 
     public String getType() {
