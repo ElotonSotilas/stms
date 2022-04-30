@@ -1,11 +1,16 @@
 package dev.georgev.stms.controller;
 
+import dev.georgev.stms.exception.ResourceNotFoundException;
+import dev.georgev.stms.model.Account;
 import dev.georgev.stms.model.Project;
 import dev.georgev.stms.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -23,8 +28,29 @@ public class ProjectController {
         return projectRepository.save(p);
     }
 
-    @DeleteMapping("/project")
-    public boolean removeProject(@RequestBody Project p) {
-        return projectRepository.findAll().remove(p);
+    // Update project
+    @PutMapping("/account/{id}")
+    public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project project) {
+        Project p = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account does not exist: " + id));
+        p.setKey(project.getKey());
+        p.setTitle(project.getTitle());
+        p.setOwner_id(project.getOwner_id());
+
+        Project updProj = projectRepository.save(p);
+        return ResponseEntity.ok(updProj);
+    }
+
+    // Remove project
+    @DeleteMapping("/account/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteAccount(@PathVariable Long id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account does not exist: " + id));
+
+        projectRepository.delete(project);
+        Map<String, Boolean> res = new HashMap<>();
+        res.put("deleted", Boolean.TRUE);
+
+        return ResponseEntity.ok(res);
     }
 }

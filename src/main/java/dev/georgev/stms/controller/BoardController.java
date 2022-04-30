@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -34,10 +36,27 @@ public class BoardController {
         return boardRepository.save(b);
     }
 
-    @DeleteMapping("/board")
-    public boolean removeBoard(@RequestBody Board b) {
-        TaskController tc = new TaskController();
-        tc.removeAllTasks();
-        return boardRepository.findAll().remove(b);
+    // Update board
+    @PutMapping("/board/{id}")
+    public ResponseEntity<Board> updateBoard(@PathVariable Long id, @RequestBody Board board) {
+        Board b = boardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Board does not exist: " + id));
+        b.setName(board.getName());
+
+        Board updBoard = boardRepository.save(b);
+        return ResponseEntity.ok(updBoard);
+    }
+
+    // Remove board
+    @DeleteMapping("/board/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteBoard(@PathVariable Long id) {
+        Board b = boardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Board does not exist: " + id));
+
+        boardRepository.delete(b);
+        Map<String, Boolean> res = new HashMap<>();
+        res.put("deleted", Boolean.TRUE);
+
+        return ResponseEntity.ok(res);
     }
 }

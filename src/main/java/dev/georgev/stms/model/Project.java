@@ -13,6 +13,14 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "project", uniqueConstraints = @UniqueConstraint(columnNames = "project_key"))
 public class Project {
+    public Account getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(Account owner_id) {
+        this.owner_id = owner_id;
+    }
+
     // Create foreign key
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "account_id")
@@ -21,7 +29,8 @@ public class Project {
     // Constructors
     public Project() {}
 
-    public Project(long project_id, String project_key, String title) {
+    public Project(long project_id, String project_key, String title, Account owner_id) {
+        this.owner_id = owner_id;
         this.project_id = project_id;
         this.project_key = project_key;
         this.title = title;
