@@ -3,13 +3,14 @@ import AccountService from "../services/AccountService";
 import {Navigate} from "react-router";
 import DangerButton from "../templates/DangerButton";
 
-class CreateAccountComponent extends Component <{},
-    {first_name: string, last_name: string, email: string}> {
+class UpdateAccountComponent extends Component <{},
+    {id: any, first_name: string, last_name: string, email: string}> {
 
     constructor(props: any) {
         super(props);
 
         this.state = {
+            id: '',
             first_name: '',
             last_name: '',
             email: ''
@@ -18,7 +19,7 @@ class CreateAccountComponent extends Component <{},
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
-        this.addAccount = this.addAccount.bind(this)
+        this.updateAccount = this.updateAccount.bind(this)
     }
 
     changeFirstNameHandler = (event: any) => {
@@ -39,47 +40,69 @@ class CreateAccountComponent extends Component <{},
         })
     }
 
-    addAccount = (event: any) => {
+    updateAccount = (event: any) => {
         event.preventDefault()
         let account = {
+            id: this.state.id,
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             email: this.state.email
         }
 
-        AccountService.newAccount(account).then(_res => {
-            (<Navigate to="/account" replace={true}/>)
+        AccountService.modifyAccount(this.state.id, account).then((res) => {
+            let account = res.data;
+            this.setState({
+                id: account.id,
+                first_name: account.first_name,
+                last_name: account.last_name,
+                email: account.email
+            })
+        })
+
+        return (<Navigate to="/account"/>)
+    }
+
+    componentDidMount() {
+        AccountService.getAccountById(this.state.id).then((res) => {
+            let account = res.data;
+            this.setState({
+                id: account.id,
+                first_name: account.first_name,
+                last_name: account.last_name,
+                email: account.email
+            })
         })
     }
 
     render() {
+        document.body.classList.add("removeSearch");
         return (
             <div className="Container">
                 <br/>
                 <div className="Row">
                     <div className="card col-md-6 offset-md-3 bg-transparent border-0">
-                        <h3 className="text-center">Account Wizard</h3>
+                        <h3 className="text-center">Account Wizard » Update Account {this.state.id}</h3>
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
                                     <label className="required">First Name</label>
                                     <input type="text" placeholder="First Name" name="first_name" className="form-control"
-                                           defaultValue={this.state.first_name} onChange={this.changeFirstNameHandler}/>
+                                           value={this.state.first_name} onChange={this.changeFirstNameHandler}/>
                                 </div>
 
                                 <div className="form-group">
                                     <label className="required">Last Name</label>
                                     <input type="text" placeholder="Last Name" name="last_name" className="form-control"
-                                           defaultValue={this.state.last_name} onChange={this.changeLastNameHandler}/>
+                                           value={this.state.last_name} onChange={this.changeLastNameHandler}/>
                                 </div>
 
                                 <div className="form-group">
                                     <label className="required">Email</label>
                                     <input type="email" placeholder="Email" name="email" className="form-control"
-                                           defaultValue={this.state.email} onChange={this.changeEmailHandler}/>
+                                           value={this.state.email} onChange={this.changeEmailHandler}/>
                                 </div>
 
-                                <button className="btn btn-success" onClick={this.addAccount}>Add Account</button>
+                                <button className="btn btn-success" onClick={this.updateAccount}>Update Account</button>
                                 <DangerButton screenName="/account" text="Cancel"/>
                             </form>
                         </div>
@@ -90,4 +113,4 @@ class CreateAccountComponent extends Component <{},
     }
 }
 
-export default CreateAccountComponent;
+export default UpdateAccountComponent;

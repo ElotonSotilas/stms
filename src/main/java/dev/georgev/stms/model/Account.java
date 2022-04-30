@@ -40,19 +40,17 @@ public class Account {
 
     @Column(name = "first_name")
     @NotEmpty(message = "Please, provide a first name.")
-    @Min(value = 2, message = "Contents must be at least 2 characters long.")
-    @Max(value = 255, message = "Contents exceed limit (255).")
+    @Size(max = 255, message = "Exceeding maximum size (255).")
     private String first_name;
 
     @Column(name = "last_name")
     @NotEmpty(message = "Please, provide a last name.")
-    @Min(value = 2, message = "Contents must be at least 2 characters long.")
-    @Max(value = 255, message = "Contents exceed limit (255).")
+    @Size(max = 255, message = "Exceeding maximum size (255).")
     private String last_name;
 
     @Column(name = "email", unique = true)
     @NotEmpty(message = "Please, provide an email.")
-    @Max(value = 255, message = "Contents exceed limit (255).")
+    @Size(max = 255, message = "Exceeding maximum size (255).")
     @Email(message = "Invalid email.")
     private String email;
 

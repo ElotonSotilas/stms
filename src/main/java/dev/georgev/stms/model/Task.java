@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -57,23 +58,27 @@ public class Task {
 
     @Column(name = "title")
     @NotEmpty(message = "Please, provide a task title.")
-    @Max(value = 255, message = "Contents exceed limit (255).")
+    @Size(max = 255, message = "Exceeding maximum size (255).")
     private String title;
 
-    @Column(name = "type")
-    @Max(value = 50, message = "Contents exceed limit (50).")
+    @Column(name = "type",
+            columnDefinition = "CHECK (type in ('Story', 'Bug', 'Epic', 'New Feature', 'Technical Debt'))")
+    @Size(max = 50)
     private String type;
 
-    @Column(name = "status", nullable = false)
-    @Max(value = 50, message = "Contents exceed limit (50).")
+    @Column(name = "status", nullable = false,
+            columnDefinition = "CHECK (status in ('New', 'In Development', 'In QA', 'Done'))")
+    @Size(max = 50)
     @Value("New")
     private String status;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "priority", nullable = false)
+    @Column(name = "priority", nullable = false,
+            columnDefinition = "CHECK (priority in ('Low', 'Medium', 'High'))")
     @Value("Low")
+    @Size(max = 50)
     private String priority;
 
     @Column(name = "story_points")

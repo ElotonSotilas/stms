@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -38,8 +39,7 @@ public class Board {
 
     @Column(name = "name", unique = true)
     @NotEmpty(message = "Please, provide a name.")
-    @Min(value = 2, message = "Contents must be at least 2 characters long.")
-    @Max(value = 255, message = "Contents exceed limit (255).")
+    @Size(max = 255, message = "Exceeding maximum size (255).")
     private String name;
 
     @Column(name = "created_at")

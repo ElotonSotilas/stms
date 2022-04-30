@@ -1,13 +1,149 @@
-body {
+html, body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #b9fac1;
+  background-image: linear-gradient(30deg, #b8dabd 0%, #b1ffcc 74%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.align-update {
+  position: relative;
+  margin-left: 510%;
+  margin-right: 0;
+  font-size: 18pt;
+}
+
+.removeSearch #search {
+  display: none;
+}
+
+/* Beautiful tables! */
+
+.beautiful-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.beautiful-table thead tr {
+  background-color: #389800;
+  color: #ffffff;
+  text-align: left;
+}
+
+.beautiful-table th,
+.beautiful-table td {
+  padding: 12px 15px;
+}
+
+.beautiful-table tbody tr {
+  border-bottom: 1px solid #bcc7b4;
+}
+
+.beautiful-table tbody tr:nth-of-type(even) {
+  background-color: #e0fddd;
+}
+
+.beautiful-table tbody tr:last-of-type {
+  border-bottom: 2px solid #0a9800;
+}
+
+.beautiful-table tbody tr.active-row {
+  font-weight: bold;
+  color: #449800;
+}
+
+
+/* Beautiful buttons */
+
+.beautiful-button {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #58c50e 0, #16c20f 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(50, 66, 35, 0.4) 0 2px 4px, rgba(43, 66, 35, 0.3) 0 7px 13px -3px, rgba(68, 111, 58, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: sans-serif;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.beautiful-button:focus {
+  box-shadow: #49af1f 0 0 0 1px inset, rgba(47, 66, 35, 0.4) 0 2px 4px, rgba(41, 66, 35, 0.3) 0 7px 13px -3px, #5eaf28 0 -3px 0 inset;
+}
+
+.beautiful-button:hover {
+  box-shadow: rgba(54, 66, 35, 0.4) 0 4px 8px, rgba(47, 66, 35, 0.3) 0 7px 13px -3px, #3faf1c 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.beautiful-button:active {
+  box-shadow: #6bc92c 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+/* Invisible button */
+
+.invisible-button {
+  background-color: transparent;
+  border: transparent;
+}
+
+/* Custom form box */
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-control-underlined {
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-radius: 0;
+  padding-left: 0;
+}
+
+/* Required field */
+
+.required:after {
+  content:" *";
+  color: red;
+}
+
+/* Unselectable text */
+
+.unselectable {
+  user-select: none;
 }
