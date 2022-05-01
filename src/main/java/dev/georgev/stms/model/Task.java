@@ -23,6 +23,7 @@ public class Task {
     // Create foreign key
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_to", referencedColumnName = "account_id")
+    @Nullable
     public Account assigned_to;
 
     // Create foreign key

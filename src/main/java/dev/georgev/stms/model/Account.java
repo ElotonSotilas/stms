@@ -89,4 +89,8 @@ public class Account {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public long getAccount_id() {
+        return account_id;
+    }
 }
