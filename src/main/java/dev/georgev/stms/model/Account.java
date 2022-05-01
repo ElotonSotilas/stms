@@ -57,15 +57,15 @@ public class Account {
     @Email(message = "Invalid email.")
     private String email;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     @CreationTimestamp
     private Timestamp created_at;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
     private Timestamp updated_at;
 
-    // Getters and Setters
+// Getters and Setters
 
     public String getFirst_name() {
         return first_name;
@@ -92,5 +92,21 @@ public class Account {
 
     public long getAccount_id() {
         return account_id;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
+    public Timestamp getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
     }
 }

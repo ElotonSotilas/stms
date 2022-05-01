@@ -7,19 +7,20 @@ class AccountService {
         return axios.get(ACCOUNT_API_BASE_URL)
     }
 
-    getAccountById(accountId: any) {
+    getAccountById(accountId) {
         return axios.get(ACCOUNT_API_BASE_URL + '/' + accountId)
     }
 
-    newAccount(account: any) {
+    newAccount(account) {
         return axios.post(ACCOUNT_API_BASE_URL, account)
     }
 
-    modifyAccount(accountId: any, accountData: any) {
+    modifyAccount(accountId, accountData) {
+        console.log(accountId, JSON.stringify(accountData))
         return axios.put(ACCOUNT_API_BASE_URL + '/' + accountId, accountData)
     }
 
-    dropAccount(accountId: any) {
+    dropAccount(accountId) {
         return axios.delete(ACCOUNT_API_BASE_URL + "/" + accountId)
     }
 }

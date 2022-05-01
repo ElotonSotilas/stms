@@ -2,25 +2,16 @@ import React, {Component} from 'react';
 import AccountService from "../services/AccountService";
 import NavigationButton from "../templates/NavigationButton";
 import {useNavigate} from "react-router";
-import {AxiosResponse} from "axios";
 
-let result: AxiosResponse;
+let result;
 
-class ListAccountComponent extends Component<{}, { accounts: any }> {
-    constructor(props: any) {
+class ListAccountComponent extends Component {
+    constructor(props) {
         super(props);
 
         this.state = {
             accounts: []
         }
-    }
-
-    forceUpdate(callback?: () => void) {
-        super.forceUpdate(callback);
-    }
-
-    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{ accounts: any }>, snapshot?: any) {
-        setInterval(super.render, 1000)
     }
 
     componentDidMount() {
@@ -68,9 +59,8 @@ class ListAccountComponent extends Component<{}, { accounts: any }> {
 
                         <tbody>
                         {
-                            // @ts-ignore
                             this.state.accounts.map(
-                                (account: any) => <tr key={account.id}>
+                                (account) => <tr key={account.id}>
                                     <td>{account.account_id}</td>
                                     <td>{account.first_name}</td>
                                     <td>{account.last_name}</td>
@@ -92,7 +82,7 @@ class ListAccountComponent extends Component<{}, { accounts: any }> {
     }
 }
 
-function UpdateAccountButton({id}: { id: any }) {
+function UpdateAccountButton({id}) {
     let navigate = useNavigate();
     let page = "/update-account/" + id;
     return (
@@ -104,7 +94,7 @@ function UpdateAccountButton({id}: { id: any }) {
     )
 }
 
-function DeleteAccountButton({id}: { id: any }) {
+function DeleteAccountButton({id}) {
     return (
         <button onClick={
             () => {
