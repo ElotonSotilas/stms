@@ -1,7 +1,6 @@
 package dev.georgev.stms.controller;
 
 import dev.georgev.stms.exception.ResourceNotFoundException;
-import dev.georgev.stms.model.Account;
 import dev.georgev.stms.model.Board;
 import dev.georgev.stms.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;

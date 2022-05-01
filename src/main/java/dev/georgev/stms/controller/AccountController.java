@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.ReadOnlyFileSystemException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +54,6 @@ public class AccountController {
     // Remove account
     @DeleteMapping("/account/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteAccount(@PathVariable Long id) {
-
-
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Account does not exist: " + id));
 

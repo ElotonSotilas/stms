@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -41,13 +40,19 @@ public class Task {
 
     public Task(String title,
                 String type, String status, String description,
-                String priority, long story_points) {
+                String priority, long story_points,
+                Account reported_by, Account assigned_to,
+                Board board_id, Project project) {
         this.title = title;
         this.type = type;
         this.status = status;
         this.description = description;
         this.priority = priority;
         this.story_points = story_points;
+        this.reported_by = reported_by;
+        this.assigned_to = assigned_to;
+        this.board_id = board_id;
+        this.project = project;
     }
 
     // Columns
@@ -94,13 +99,6 @@ public class Task {
     private Timestamp updated_at;
 
     // Getters and Setters
-    public long getTask_id() {
-        return task_id;
-    }
-
-    public void setTask_id(long task_id) {
-        this.task_id = task_id;
-    }
 
     public String getTitle() {
         return title;
@@ -114,29 +112,27 @@ public class Task {
         return type;
     }
 
-    public boolean setType(String type) {
+    public void setType(String type) {
         if (Objects.equals(type, "Story") ||
         Objects.equals(type, "Bug") ||
         Objects.equals(type, "Epic") ||
         Objects.equals(type, "New Feature") ||
         Objects.equals(type, "Technical Debt")) {
             this.type = type;
-            return true;
-        } else return false;
+        }
     } // Possible values
 
     public String getStatus() {
         return status;
     }
 
-    public boolean setStatus(String status) {
+    public void setStatus(String status) {
         if (Objects.equals(status,"New") ||
         Objects.equals(status, "In Development") ||
         Objects.equals(status, "In QA") ||
         Objects.equals(status, "Done")) {
             this.status = status;
-            return true;
-        } else return false;
+        }
     } // validation of entries
 
     public String getDescription() {
@@ -151,13 +147,12 @@ public class Task {
         return priority;
     }
 
-    public boolean setPriority(String priority) {
+    public void setPriority(String priority) {
         if (Objects.equals(priority, "Low") ||
             Objects.equals(priority, "Medium") ||
             Objects.equals(priority, "High")) {
             this.priority = priority;
-            return true;
-        } else return false;
+        }
     } // Must be one of these values to set.
 
     public long getStory_points() {
@@ -168,19 +163,35 @@ public class Task {
         this.story_points = story_points;
     }
 
-    public Timestamp getCreated_at() {
-        return created_at;
+    public Account getReported_by() {
+        return reported_by;
     }
 
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
+    public void setReported_by(Account reported_by) {
+        this.reported_by = reported_by;
     }
 
-    public Timestamp getUpdated_at() {
-        return updated_at;
+    public Account getAssigned_to() {
+        return assigned_to;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
+    public void setAssigned_to(Account assigned_to) {
+        this.assigned_to = assigned_to;
+    }
+
+    public Board getBoard_id() {
+        return board_id;
+    }
+
+    public void setBoard_id(Board board_id) {
+        this.board_id = board_id;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

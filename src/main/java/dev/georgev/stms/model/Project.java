@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -62,14 +61,6 @@ public class Project {
 
     // Getters and setters
 
-    public long getProject_id() {
-        return project_id;
-    }
-
-    public void setProject_id(long project_id) {
-        this.project_id = project_id;
-    }
-
     public String getKey() {
         return project_key;
     }
@@ -85,21 +76,5 @@ public class Project {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
-
-    public Timestamp getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
     }
 }

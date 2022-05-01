@@ -1,7 +1,6 @@
 package dev.georgev.stms.controller;
 
 import dev.georgev.stms.exception.ResourceNotFoundException;
-import dev.georgev.stms.model.Account;
 import dev.georgev.stms.model.Task;
 import dev.georgev.stms.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,10 @@ public class TaskController {
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
         Task t = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Account does not exist: " + id));
+        t.setReported_by(task.getReported_by());
+        t.setAssigned_to(task.getAssigned_to());
+        t.setBoard_id(task.getBoard_id());
+        t.setProject(task.getProject());
         t.setDescription(task.getDescription());
         t.setTitle(task.getTitle());
         t.setPriority(task.getPriority());
@@ -45,10 +48,8 @@ public class TaskController {
     }
 
     // Remove task
-    @DeleteMapping("/account/{id}")
+    @DeleteMapping("/task/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteTask(@PathVariable Long id) {
-
-
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Account does not exist: " + id));
 

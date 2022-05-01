@@ -40,16 +40,19 @@ public class Account {
 
     @Column(name = "first_name")
     @NotEmpty(message = "Please, provide a first name.")
+    @NotNull(message = "Please, provide a first name.")
     @Size(max = 255, message = "Exceeding maximum size (255).")
     private String first_name;
 
     @Column(name = "last_name")
     @NotEmpty(message = "Please, provide a last name.")
+    @NotNull(message = "Please, provide a last name.")
     @Size(max = 255, message = "Exceeding maximum size (255).")
     private String last_name;
 
     @Column(name = "email", unique = true)
     @NotEmpty(message = "Please, provide an email.")
+    @NotNull(message = "Please, provide an email.")
     @Size(max = 255, message = "Exceeding maximum size (255).")
     @Email(message = "Invalid email.")
     private String email;
@@ -63,13 +66,6 @@ public class Account {
     private Timestamp updated_at;
 
     // Getters and Setters
-    public long getAccount_id() {
-        return this.account_id;
-    }
-
-    public void setAccount_id(long account_id) {
-        this.account_id = account_id;
-    }
 
     public String getFirst_name() {
         return first_name;
@@ -90,24 +86,7 @@ public class Account {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
-
-    public Timestamp getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
     }
 }

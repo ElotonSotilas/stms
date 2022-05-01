@@ -1,7 +1,6 @@
 package dev.georgev.stms.controller;
 
 import dev.georgev.stms.exception.ResourceNotFoundException;
-import dev.georgev.stms.model.Account;
 import dev.georgev.stms.model.Project;
 import dev.georgev.stms.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class ProjectController {
     }
 
     // Update project
-    @PutMapping("/account/{id}")
+    @PutMapping("/project/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project project) {
         Project p = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Account does not exist: " + id));
@@ -42,7 +41,7 @@ public class ProjectController {
     }
 
     // Remove project
-    @DeleteMapping("/account/{id}")
+    @DeleteMapping("/project/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteAccount(@PathVariable Long id) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Account does not exist: " + id));

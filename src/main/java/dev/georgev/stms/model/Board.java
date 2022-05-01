@@ -5,8 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -51,13 +49,6 @@ public class Board {
     private Timestamp updated_at;
 
     // Getters and setters
-    public long getBoard_id() {
-        return board_id;
-    }
-
-    public void setBoard_id(long board_id) {
-        this.board_id = board_id;
-    }
 
     public String getName() {
         return name;
@@ -65,22 +56,5 @@ public class Board {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
-
-    public Timestamp getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
     }
 }
